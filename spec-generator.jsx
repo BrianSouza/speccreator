@@ -36,6 +36,46 @@ const MODELS = {
   ollama:     ["llama3.2", "mistral", "gemma3", "qwen2.5-coder", "deepseek-r1"],
 };
 
+// ---- Estilos e componentes de UI (fora do componente para evitar remount a cada render) ----
+
+const inputStyle = {
+  background: C.surfaceAlt,
+  border: `1px solid ${C.border}`,
+  color: C.textPrimary,
+  fontFamily: FONT,
+  fontSize: 13,
+  padding: "8px 12px",
+  borderRadius: 6,
+  width: "100%",
+  outline: "none",
+  boxSizing: "border-box",
+};
+const textareaStyle = {
+  ...inputStyle,
+  resize: "vertical",
+  minHeight: 80,
+};
+const selectStyle = { ...inputStyle, cursor: "pointer" };
+const labelStyle  = {
+  display: "block",
+  color: C.textMuted,
+  fontSize: 11,
+  fontFamily: FONT,
+  marginBottom: 4,
+  textTransform: "uppercase",
+  letterSpacing: "0.08em",
+};
+const fieldStyle = { marginBottom: 16 };
+
+function Field({ label, children }) {
+  return (
+    <div style={fieldStyle}>
+      <label style={labelStyle}>{label}</label>
+      {children}
+    </div>
+  );
+}
+
 // ---- Funções puras fora do componente ----
 
 async function callLLM(systemPrompt, userPrompt, llmConfig) {
@@ -312,45 +352,6 @@ O documento deve ser direto ao ponto, sem repetições, pronto para ser colado n
     await navigator.clipboard.writeText(specMd);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  }
-
-  // ---- Estilos reutilizáveis ----
-  const inputStyle = {
-    background: C.surfaceAlt,
-    border: `1px solid ${C.border}`,
-    color: C.textPrimary,
-    fontFamily: FONT,
-    fontSize: 13,
-    padding: "8px 12px",
-    borderRadius: 6,
-    width: "100%",
-    outline: "none",
-    boxSizing: "border-box",
-  };
-  const textareaStyle = {
-    ...inputStyle,
-    resize: "vertical",
-    minHeight: 80,
-  };
-  const selectStyle = { ...inputStyle, cursor: "pointer" };
-  const labelStyle  = {
-    display: "block",
-    color: C.textMuted,
-    fontSize: 11,
-    fontFamily: FONT,
-    marginBottom: 4,
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
-  };
-  const fieldStyle = { marginBottom: 16 };
-
-  function Field({ label, children }) {
-    return (
-      <div style={fieldStyle}>
-        <label style={labelStyle}>{label}</label>
-        {children}
-      </div>
-    );
   }
 
   function scoreColor(s) {

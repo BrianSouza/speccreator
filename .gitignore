@@ -36,3 +36,15 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code
+.claude/
+
+# Cobertura de testes
+coverage/
+
+# Artefatos de build incremental
+*.tsbuildinfo
+
+# Cache do ESLint
+.eslintcache
